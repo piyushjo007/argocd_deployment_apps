@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: github-gist-app
-        image: joship4/simple-github-api-webapp:V_0.2
+        image: joship4/simple-github-api-webapp:V_0.3
         resources:
           limits:
             memory: "128Mi"
