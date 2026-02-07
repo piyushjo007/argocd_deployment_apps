@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: github-gist-app-service
+spec:
+  selector:
+    app: github-gist-app
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 8080
