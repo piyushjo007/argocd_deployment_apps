@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-gist-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: github-gist-app
+  template:
+    metadata:
+      labels:
+        app: github-gist-app
+    spec:
+      containers:
+      - name: github-gist-app
+        image: joship4/simple-github-api-webapp:V_0.2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 1
+          periodSeconds: 5
+          failureThreshold: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        livenessProbe:  
+          httpGet:
+            path: /live
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 10
+        startupProbe:
+          httpGet:
+            path: /startup
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10 
+          failureThreshold: 10
