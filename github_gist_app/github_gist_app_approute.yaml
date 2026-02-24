@@ -1,0 +1,18 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: github-gist-app-ingressroute
+  namespace: argocd-based-apps
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`github-gist-app.learningreliability.site`)
+      kind: Rule
+      services:
+        - name: github-gist-app-service
+          port: 80
+  tls:
+    secretName: linode-dns01-learningreliability-tls
